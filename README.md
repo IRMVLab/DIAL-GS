@@ -53,7 +53,7 @@ pip install ./nvdiffrast
 
 ```
 # Install boxmot (for tracking)
-conda create --name boxmot 
+conda create --name boxmot python=3.10
 conda activate boxmot
 git clone https://github.com/mikel-brostrom/boxmot.git
 pip install ./boxmot
@@ -179,4 +179,5 @@ https://github.com/user-attachments/assets/d826567d-ffda-4aab-b6d7-04d5dc02b350
 ## :pray: Acknowledgements
 
 We adapted some codes from some awesome repositories including [PVG](https://github.com/fudan-zvg/PVG) and [DeSiRe-GS](https://github.com/chengweialan/desire-gs).
+Thank [boxmot](https://github.com/mikel-brostrom/boxmot) for its pluggable and well-developed repository.
 
