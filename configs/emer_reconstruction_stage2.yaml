@@ -1,0 +1,91 @@
+exhaust_test: false
+isotropic: false
+enable_dynamic: true
+
+scale_increase_interval: 5000
+# ModelParams
+scene_type: "EmerWaymo"
+resolution_scales: [1, 2, 4, 8, 16]
+cam_num: 3
+eval: false
+num_pts: 600000
+t_init: 0.1
+time_duration: [0, 1]
+separate_scaling_t: 0.2
+separate_velocity: 10
+start_time: 0
+end_time: 49
+stride: 0
+original_start_time: 0
+
+load_sky_mask: true
+load_panoptic_mask: false
+load_sam_mask: false
+load_dynamic_mask: true
+load_feat_map: false
+load_normal_map: true
+
+load_intrinsic: false
+load_c2w: false
+
+save_occ_grid: true
+occ_voxel_size: 0.4
+recompute_occ_grid: false
+use_bg_gs: false
+white_background: false
+# PipelineParams
+
+
+# OptimizationParams
+iterations: 50000
+
+
+
+opacity_lr: 0.005
+
+densify_until_iter: 15000
+densify_grad_threshold: 0.00017
+sh_increase_interval: 2000
+
+
+lambda_t_reg: 0.0
+lambda_v_reg: 0.01
+lambda_normal: 0.1
+lambda_lidar: 0.1
+lambda_scaling: 0.0
+lambda_depth_var: 0.0
+lambda_min_scale: 10.0
+min_scale: 0.001
+max_scale: 0.2 # corresponding to 4.0m
+lambda_max_scale: 1.0
+
+neg_fov: false
+# uncertainty model
+dynamic_mask_epoch: 30000
+uncertainty_stage: stage2
+uncertainty_mode: "dino" # ["disabled", "l2reg", "l1reg", "dino", "dino+mssim"]
+uncertainty_backbone: "dinov2_vits14_reg"
+uncertainty_model_path: null
+uncertainty_regularizer_weight: 0.5
+uncertainty_clip_min: 0.1
+uncertainty_mask_clip_max: null
+uncertainty_dssim_clip_max: 1.0  # 0.05 -> 0.005
+uncertainty_lr: 0.001
+uncertainty_dropout: 0.1
+uncertainty_dino_max_size: null
+uncertainty_scale_grad: false
+uncertainty_center_mult: false
+uncertainty_after_opacity_reset: 1000
+uncertainty_protected_iters: 500
+uncertainty_preserve_sky: false
+
+
+render_type: pvg
+
+
+multi_view_weight_from_iter: 20000
+multi_view_patch_size: 3
+multi_view_sample_num: 102400
+multi_view_ncc_weight: 0.0
+multi_view_geo_weight: 0.03
+multi_view_pixel_noise_th: 1.0

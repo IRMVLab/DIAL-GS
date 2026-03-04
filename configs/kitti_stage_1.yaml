@@ -1,0 +1,77 @@
+scene_type: "KittiMot"
+start_frame: 380
+end_frame: 431 #431
+fix_radius: 15
+
+refine_iter: 40000            # Total number of refinement iterations
+refine_init_pcd_limit: 1000000 # Cap on the initial point cloud size
+refine_init_opacity: 0.01     # Opacity assigned to newly initialized GS points
+refine_vis_interval: 100      # Visualization interval during refinement
+random_init_point: 200000     # Randomly initialized GS points in addition to LiDAR seeds
+sh_increase_interval: 2000    # Interval for increasing the SH degree
+
+refine_densify_from_iter: 500
+refine_densify_until_iter: 20000
+refine_densification_interval: 200
+refine_densify_grad_threshold: 0.00015 
+refine_max_points: 10000000         
+
+refine_prune_from_iter: 500
+refine_prune_until_iter: 20000
+refine_prune_interval: 200        
+refine_prune_big_point: 1 
+refine_size_threshold: 100 
+refine_big_point_threshold: 0.4
+refine_thresh_opa_prune: 0.005 
+refine_opacity_reset_interval: 5000
+refine_env_map_res: 1024
+refine_save: 5000
+
+
+warp_frame: 3
+iter_per_frame: 400 # Iterations allocated to each frame
+init_opacity: 1 # Starting opacity for GS points
+valid_max_depth: 30 # Depth samples beyond this distance are treated as invalid
+resume : -1 # Set to 1 once stage one finishes so stage two resumes from checkpoint
+percent_dense: 0.01 # Only GS above this scale ratio use split densification; others clone
+densify_from_iter: 50 # Iteration at which densification and pruning begin
+densify_until_iter: 100 # Iteration at which densification and pruning stop
+densification_interval: 50  # Interval between consecutive densify/prune passes
+densify_grad_threshold: 0.0001 # Minimum gradient required for a GS point to densify
+thresh_opa_prune: 0.005 # Prune GS if sigmoid opacity falls below this threshold
+opacity_reset_interval: -1  # Negative value disables opacity-based pruning
+densify_until_num_points: 3000000 # Stop densification once GS count reaches this limit
+prune_big_point: 1 # Enable pruning for GS points that grow too large
+size_threshold: 20  # Oversized GS threshold measured as projected pixel size
+big_point_threshold: 1 # Oversized GS threshold measured as 3D scale magnitude
+contract: True  # Applies stronger contraction to distant GS before densify/prune checks
+vis_interval: 200 # Visualization refresh interval
+
+
+render_type: gs
+exhaust_test: false
+isotropic: false
+enable_dynamic: False # Disable dynamic GS behavior for this stage
+
+# ModelParams
+
+resolution_scales: [1]
+eval: false # Set true to reserve a subset of cameras for evaluation
+neg_fov: true
+
+
+load_sky_mask: true
+load_normal_map: false
+white_background: false
+
+# loss
+opacity_lr: 0.007
+lambda_normal: 0.0
+lambda_color: 1
+lambda_lidar: 0.1 # LiDAR-based depth supervision weight
+lidar_decay: 1.0
+lambda_scaling: 0.1  # Regularization weight that enforces uniform scaling
+lambda_dssim: 0.2
+lambda_sky_opa: 0.05
+lambda_opacity_entropy: 0  #0.05
+lambda_inv_depth: 0.001

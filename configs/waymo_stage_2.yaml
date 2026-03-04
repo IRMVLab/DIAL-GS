@@ -1,0 +1,84 @@
+exhaust_test: false # Disable exhaustive evaluation sweeps during training
+isotropic: false # Keep anisotropic Gaussians unless debugging requires isotropy
+enable_dynamic: true # Enable full dynamic GS modeling for stage two motion capture
+
+scale_increase_interval: 5000 # Interval for boosting the maximum allowed GS scale
+# ModelParams
+scene_type: "Waymo"
+resolution_scales: [1, 2, 4, 8, 16]
+cam_num: 3 # Number of synchronized camera views per sequence
+eval: false # Set true to hold out a subset of cameras exclusively for evaluation
+num_pts: 600000 # Target number of GS points maintained by the optimizer
+random_init_point: 200000 # Randomly initialized GS seeds injected alongside LiDAR points
+t_init: 0.1 # Beta-related hyperparameter kept for PVG compatibility
+time_duration: [0, 1] # Normalized temporal window covered by the clip
+separate_scaling_t: 0.2 # Temporal ratio that controls when scale parameters are split
+separate_velocity: 10 # Velocity threshold for splitting moving Gaussians
+start_time: 0
+end_time: 49
+stride: 0
+original_start_time: 0
+
+load_sky_mask: true
+load_panoptic_mask: false
+load_sam_mask: false
+load_dynamic_mask: true
+load_feat_map: false
+load_normal_map: true
+
+load_intrinsic: false
+load_c2w: false
+
+save_occ_grid: true
+occ_voxel_size: 0.4
+recompute_occ_grid: false
+use_bg_gs: false
+white_background: false
+# PipelineParams
+
+
+# OptimizationParams
+iterations: 55000 # Total stage-two training iterations
+dynamic_mask_epoch: 10000 # Turn on velocity and beta regularization after this iteration
+id_2d_epoch: 0 # Enable 2D ID training from the first iteration
+id_3d_epoch: 30000 # Launch the 3D clustering stage after the coarse phase
+consist_epoch: 45000 # Start applying consistent loss
+lambda_self_supervision: 0.5 # Probablity for velocity smoothing
+
+opacity_lr: 0.005
+
+densify_until_iter: 15000 # Stop densification once this iteration is reached
+densify_grad_threshold: 0.00017 # Minimum gradient magnitude required to spawn new GS
+sh_increase_interval: 2000 # Interval for bumping the spherical harmonic degree
+
+env_map_res: 1024 # Resolution of the learned environment map
+lambda_t_reg: 0.005 # Regularization on per-point temporal offsets
+lambda_v_reg: 0.01 # Regularization on per-point velocities
+lambda_normal: 0.1 # Surface normal consistency weight
+lambda_lidar: 0.1 # LiDAR depth supervision weight
+lambda_scaling: 0.0 # Uniform scaling prior (raise to discourage eccentric Gaussians)
+lambda_depth_var: 0.0 # Penalty on depth variance inside dynamic objects
+lambda_min_scale: 10.0 # Penalty enforcing a minimum spatial scale (in mm equivalents)
+min_scale: 0.001
+max_scale: 0.2 # Upper bound on scale, corresponds to roughly 4 meters
+lambda_max_scale: 1.0 # Penalty for Gaussians hitting the max_scale ceiling
+
+neg_fov: true # Allow negative FOV handling for highly wide lenses
+
+render_type: pvg # Use PVG renderer with velocity-aware splatting
+
+
+
+multi_view_weight_from_iter: 99990000 # Effectively disable the multi-view NCC term by default
+multi_view_patch_size: 3 # Patch size used when computing multi-view photometric cues
+multi_view_sample_num: 102400 # Number of random pixels sampled per multi-view batch
+multi_view_ncc_weight: 0.0 # NCC loss weight (raise when enabling multi-view photometrics)
+multi_view_geo_weight: 0.03 # Multi-view geometric consistency weight
+multi_view_pixel_noise_th: 1.0 # Pixel intensity difference treated as noise when sampling
+
+
+reg3d_k: 5 # Number of nearest neighbors used by 3D regularization
+lambda_obj_3d: 1.5 # Weight for 3D instance regularization
+lambda_obj_2d: 0.1 # Weight for 2D instance regularization
+lambda_consistency: 0.01 # Temporal consistency weight for object clusters
+

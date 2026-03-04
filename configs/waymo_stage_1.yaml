@@ -1,0 +1,77 @@
+# Static Reconstruction
+refine_iter: 30000            # Total refinement iterations before wrapping begins
+refine_init_pcd_limit: 600000 # Maximum number of points imported from the initial LiDAR cloud
+refine_init_opacity: 0.01     # Opacity assigned to refinement points at initialization
+refine_vis_interval: 500      # Interval (in iters) for dumping refinement visualizations
+random_init_point: 200000     # Extra randomly sampled GS seeds added beyond LiDAR input
+sh_increase_interval: 1000    # Interval for increasing the SH order used during refinement
+
+refine_densify_from_iter: 500 # First iteration that allows refinement densification
+refine_densify_until_iter: 8000 # Iteration after which refinement densification stops
+refine_densification_interval: 100 # Frequency of refinement densify/prune sweeps
+refine_densify_grad_threshold: 0.00017  # Minimum gradient magnitude needed to densify
+refine_max_points: 3000000         # Hard cap on the number of GS points during refinement
+
+refine_prune_from_iter: 500 # Earliest iteration that allows pruning oversized GS points
+refine_prune_until_iter: 8000 # Iteration after which refinement pruning is disabled
+refine_prune_interval: 100        # Frequency of refinement pruning sweeps
+refine_prune_big_point: 1 # Enable pruning for refinement points that grow too large
+refine_size_threshold: 20 # Oversized pixel-footprint threshold used while pruning
+refine_big_point_threshold: 1 # Oversized 3D-scale threshold for refinement pruning
+refine_thresh_opa_prune: 0.005 # Drop refinement points whose sigmoid opacity is below this
+refine_opacity_reset_interval: 3000 # Interval for resetting accumulated opacity statistics
+refine_env_map_res: 1024 # Environment map resolution for the refinement renderer
+refine_save: 10000 # Interval for saving intermediate refinement checkpoints
+
+# Wrap
+warp_frame: 3 # Number of consecutive frames wrapped together for local optimization
+iter_per_frame: 400 # Iterations allocated to optimize each wrapped frame
+init_opacity: 0.8 # Opacity assigned to wrapped points at initialization
+valid_max_depth: 30 # Depth limit; samples beyond this distance are discarded
+resume : 1 # Set to 1 when static reconstruction is done so stage two resumes from checkpoints
+percent_dense: 0.01 # Fraction of large-scale GS points that use splitting densification
+densify_from_iter: 50 # Stage-two iteration at which densify/prune begins
+densify_until_iter: 100 # Stage-two iteration at which densify/prune stops
+densification_interval: 50  # Interval between densify/prune passes while wrapping
+densify_grad_threshold: 0.0001 # Minimum gradient magnitude that triggers densification
+thresh_opa_prune: 0.005 # Wrapped GS below this sigmoid opacity are pruned
+opacity_reset_interval: -1  # Negative value disables periodic opacity resets
+densify_until_num_points: 3000000 # Stop densifying once GS count reaches this cap
+prune_big_point: 1 # Keep oversized GS pruning enabled during wrapping
+size_threshold: 20  # Oversized GS threshold measured via projected pixel size
+big_point_threshold: 1 # Oversized GS threshold measured via 3D scale magnitude
+contract: True  # Apply distance-aware contraction before densify/prune decisions
+vis_interval: 200 # Interval for dumping wrapping visualizations
+
+
+render_type: gs # Use the Gaussian Splatting renderer for stage one output
+
+
+exhaust_test: false
+isotropic: false # Preserve anisotropic Gaussians (set true to force isotropy)
+enable_dynamic: False # Disable dynamic GS modeling during static reconstruction
+
+# ModelParams
+scene_type: "Waymo"
+resolution_scales: [1]
+cam_num: 1 # Number of camera perspectives fused per scene
+eval: false # Set true to reserve a subset of cameras for evaluation only
+t_init: 0.1 # Beta-related hyperparameter kept for PVG compatibility
+neg_fov: true # Allow negative FOV handling for aggressive camera models
+
+
+load_sky_mask: true
+load_normal_map: false
+white_background: false
+
+# loss
+opacity_lr: 0.005
+lambda_normal: 0.0
+lambda_color: 1
+lambda_lidar: 0.1 # Weight for LiDAR-based depth supervision
+lidar_decay: 1.0
+lambda_scaling: 0  # Regularization weight that enforces uniform GS scaling
+lambda_dssim: 0.2
+lambda_sky_opa: 0.05
+lambda_opacity_entropy: 0  # Entropy regularizer (raise if opacity collapses)
+lambda_inv_depth: 0.001

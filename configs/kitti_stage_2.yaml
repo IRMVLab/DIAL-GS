@@ -1,0 +1,81 @@
+# ModelParams
+scene_type: "KittiMot"
+num_pts: 1000000
+random_init_point: 200000 # Random GS points initialized in addition to LiDAR samples
+cam_num: 3
+exhaust_test: true
+resolution_scales: [1, 2, 4, 8]
+# resolution_scales: [4]
+eval: false
+t_init: 0.006
+fix_radius: 15.0
+
+# PipelineParams
+
+# OptimizationParams
+iterations: 80000 
+densify_until_iter: 20000
+densify_until_num_points: 10000000
+
+opacity_lr: 0.007
+
+densification_interval: 200
+sh_increase_interval: 2000
+opacity_reset_interval: 5000
+densify_grad_threshold: 0.00015
+size_threshold: 100
+big_point_threshold: 0.4
+
+lidar_decay: 0.3
+lambda_v_reg: 0.001
+lambda_t_reg: 0.00
+
+lambda_self_supervision: 0.25
+isotropic: false
+enable_dynamic: true
+separate_scaling_t: 0.1
+separate_velocity: 10
+load_sky_mask: true
+load_panoptic_mask: false
+load_sam_mask: false
+load_dynamic_mask: true
+load_feat_map: false
+load_normal_map: true
+
+
+
+# OptimizationParams
+dynamic_mask_epoch: 20000 # Enables velocity and beta regularization after this iteration
+id_2d_epoch: 0 # Enable 2D ID training from the first iteration
+id_3d_epoch: 40000 # Launch the 3D clustering stage after the coarse phase
+consist_epoch: 60000 # Start applying consistent loss
+
+
+env_map_res: 1024
+lambda_normal: 0.01
+lambda_lidar: 0.1
+lambda_min_scale: 1.0 # 10.0
+lambda_scaling: 0.0
+min_scale: 0.001
+max_scale: 1.0 #0.2  
+lambda_max_scale: 0.1 #1.0
+neg_fov: true
+
+render_type: pvg
+
+
+
+multi_view_weight_from_iter: 99990000
+multi_view_patch_size: 3
+multi_view_sample_num: 102400
+multi_view_ncc_weight: 0.0
+multi_view_geo_weight: 0.03
+multi_view_pixel_noise_th: 1.0
+
+
+# reg3d_interval: 3
+reg3d_k: 5 # 5
+lambda_obj_3d: 1.5 #1.5 
+lambda_obj_2d: 0.1 #0.1
+lambda_consistency: 0.01 #0.01
+
