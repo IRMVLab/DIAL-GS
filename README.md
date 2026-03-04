@@ -127,6 +127,11 @@ The project follows a two-stage optimization pipeline controlled by Hydra/OmegaC
 Instance-level edition is supported by DIAL-GS.  Related scripts are included  in `./modify`. You may need to adjust the parameters carefully for different scenarios to realize the best performance.
 
 
+## 🏅Quantitative Comparison
+
+<img width="778" height="264" alt="image" src="https://github.com/user-attachments/assets/48e7c233-d3b1-406e-b467-e55237ba5174" />
+
+
 ## 🎥 Videos
 ### 🎞️ Introduction
 [![image-20260302114940327](assets/videos/Cover.png)](https://www.youtube.com/watch?v=DGVvOkT9rtk)
