@@ -1,6 +1,6 @@
 # **DIAL-GS⏱️: Dynamic Instance-Aware Reconstruction for Label-free Street Scenes with 4D Gaussian Splatting** 
 
-> [**DIAL-GS: Dynamic Instance-Aware Reconstruction for Label-free Street Scenes with 4D Gaussian Splatting**](https://arxiv.org/abs/2311.18561)
+> [**DIAL-GS: Dynamic Instance-Aware Reconstruction for Label-free Street Scenes with 4D Gaussian Splatting**](https://arxiv.org/abs/2511.06632)
 >
 > Chenpeng Su, Wenhua Wu, Chensheng Peng, Tianchen Deng, Zhe Liu, Hesheng Wang
 >
