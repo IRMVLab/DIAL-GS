@@ -129,7 +129,7 @@ Instance-level edition is supported by DIAL-GS.  Related scripts are included  i
 
 ## 🏅Quantitative Comparison
 
-<img width="378" height="119" alt="image" src="https://github.com/user-attachments/assets/f396d663-4bb5-48a8-bef0-4567cbabf723" />
+<img width="800" height="272" alt="image" src="https://github.com/user-attachments/assets/1c6972cf-bd79-49c3-926a-6b3b4028473e" />
 
 
 
